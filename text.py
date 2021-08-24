@@ -31,9 +31,7 @@ print(dfd('壮士'))
 def ase(a,b):
     return a+b
 
-a = ase(3,4)
-print(a)
 
-shit
+print(help)
 
 
