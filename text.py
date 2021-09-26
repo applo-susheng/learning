@@ -31,7 +31,12 @@ print(dfd('壮士'))
 def ase(a,b):
     return a+b
 
+def asd(**args):
+    f = 0
+    if a in args:
+        f+= a
+    return f
 
-print(help)
+print(asd(3,4,5))
 
 
