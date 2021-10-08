@@ -28,15 +28,19 @@ def dfd(i):
 print(dfd('壮士'))
 
 
-def ase(a,b):
-    return a+b
+# def ase(a,b):
+#     return a+b
 
-def asd(**args):
-    f = 0
-    if a in args:
-        f+= a
-    return f
+# def asd(*args):
+#     f = 0
+#     if a in args:
+#         f+= a
+#     return f
 
-print(asd(3,4,5))
+# print(asd(3,4,5))
 
+def gret_mee(**kwargs):
+    for key ,value in kwargs.items():
+        print("{0} == {1}".format(key,value))
 
+ss = gret_mee(naas='dnfs')
