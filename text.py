@@ -44,3 +44,13 @@ def gret_mee(**kwargs):
         print("{0} == {1}".format(key,value))
 
 ss = gret_mee(naas='dnfs')
+
+def test_args_kwargs(args1,args2,args3):
+    print('args1:',args1)
+    print('args2:',args2)
+    print('args3:',args3)
+
+testgargs = ('one','two',3)
+test_args_kwargs(*testgargs)
+testkwargs = {'args2': 3 ,'args3': 33,'args1': 333}
+test_args_kwargs(**testkwargs)
