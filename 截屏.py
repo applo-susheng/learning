@@ -64,11 +64,11 @@ def LoadOneUrl():
         title = input('请输入名称：')
         Loadfile[title] = url
         repeat = input('是否继续输入？（y/n)')
-        if repeat == 'n':
+        if repeat == 'y':
+            continue
+        elif repeat == 'n':
             update_pdf = False
             return Loadfile
-        # elif repeat == 'y':
-        #     continue
         # else:
         #     return repeat
 
@@ -94,14 +94,10 @@ def short_print(title, url,mode=1):
         driver.execute_script('window.print();')
     # 'document.title="{}";window.print();'.format(url) #利用js修改网页的title，该title最终就是PDF文件名，利用js的window.print可以快速调出浏览器打印窗口，避免使用热键ctrl+P
 
-driver = webdriver.Chrome(options=chrome_options)
-Loadfile = select()
-for title, url in Loadfile.items():
-    short_print(title, url,2)
-    #默认mode=1是自己设定的名称，mode=2是系统自带名称
-driver.close()
-
-#testpath
-#Z:\重点排污单位及企业名录\企业信息依法披露名单\2022源文件
-#F:\jupyter files\截屏\链接下载汇总.xlsx
-#http://www.spers.cn/home/info/detail/id/3172.html
+if __name__ == '__main__':
+    Custom_name = int(input('自定义截屏名称--按1: \n系统默认截屏名称--按2:'))
+    Loadfile = select()
+    driver = webdriver.Chrome(executable_path='chromedriver.exe',options=chrome_options)#设定chromedriver.exe
+    for title, url in Loadfile.items():
+        short_print(title, url,Custom_name)
+    driver.close()
