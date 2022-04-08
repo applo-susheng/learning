@@ -1,56 +1,48 @@
+import os, json, time
+from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
-# def get_dec_lan(s):
-#     return  0
-#     loc = s.find('.')
-#     if loc > 0:
-#         return  len(s)-loc-1
-#
-# if __name__ == '__main__':
-#     x = input('请输入第一个数字：')
-#     y = input('请输入第二个数字：')
-#     declan = get_dec_lan(x) + get_dec_lan(y)
-#
-#     z = str(int(x.replace('.','')) + int(y.replace('.','')))
-#
-#     if declan>0:
-#         if len(z)<declan:
-#             z = '0'*(declan-len(z)) + z
-#         z = z[:-declan] + '.' + z[-declan:]
-#
-#     print('乘积是：',z)
+settings = {
+    "recentDestinations": [{
+        "id": "Save as PDF",
+        "origin": "local",
+        "account": ""
+    }],
+    "selectedDestinationId": "Save as PDF",
+    "version": 2,
+    # "customMargins": {},
+    # "marginsType": 2,
+    # "scaling": 100,
+    # "scalingType": 3,
+    # "scalingTypePdf": 3,
+    "isLandscapeEnabled": True,  # landscape横向，portrait 纵向，若不设置该参数，默认纵向
+    "isHeaderFooterEnabled": True,  # 是否打印页眉页脚
+    "isCssBackgroundEnabled": True,  # 是否打印背景
+    "mediaSize": {
+        "height_microns": 297000,
+        "name": "ISO_A4",
+        "width_microns": 210000,
+        "custom_display_name": "A4 210 x 297 mm"  # 设定为A4尺寸
+    },
+}
 
-import random
-names = ['博士','学士','硕士','硕士','博士','学士','壮士','学士','圣斗士','生豆士']
-d ={'学士':0,'硕士':1,'博士':2,'壮士':3,'生豆士':4,'圣斗士':5}
-def dfd(i):
-    for i in names:
-       return d[i]
-print(dfd('壮士'))
+#save_path = input("请输入保存地址：")
+prefs = {
+    'printing.print_preview_sticky_settings.appState': json.dumps(settings),
+    'savefile.default_directory': 'F:\下载文件\截屏' # 此处填写你希望文件保存的路径
+}
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--enable-print-browser')  # 启用PrintBrowser模式，其中所有内容都呈现为打印
+chrome_options.add_argument('--kiosk-printing')  # 静默打印，无需用户点击打印页面的确定按钮
+chrome_options.add_experimental_option('prefs', prefs)
 
-# def ase(a,b):
-#     return a+b
-
-# def asd(*args):
-#     f = 0
-#     if a in args:
-#         f+= a
-#     return f
-
-# print(asd(3,4,5))
-
-def gret_mee(**kwargs):
-    for key ,value in kwargs.items():
-        print("{0} == {1}".format(key,value))
-
-ss = gret_mee(naas='dnfs')
-
-def test_args_kwargs(args1,args2,args3):
-    print('args1:',args1)
-    print('args2:',args2)
-    print('args3:',args3)
-
-testgargs = ('one','two',3)
-test_args_kwargs(*testgargs)
-testkwargs = {'args2': 3 ,'args3': 33,'args1': 333}
-test_args_kwargs(**testkwargs)
+driver = webdriver.Chrome(options=chrome_options)
+driver.set_page_load_timeout(10)
+driver.set_script_timeout(10)
+try:
+    driver.get(r'https://blog.csdn.net/ginynu/article/details/63697559')
+except:
+    driver.execute_script('window.stop')
