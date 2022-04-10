@@ -1,48 +1,74 @@
-import os, json, time
-from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+# import matplotlib.pyplot as plt
+# rt = list(range(10001))
+# fd = [x**2 for x in rt]
+# plt.scatter(rt,fd,c=rt,cmap=plt.cm.Blues,s=50)#生产点图
+# plt.title('TEST',fontsize=24)
+# plt.xlabel('value',fontsize=14)
+# plt.ylabel('key',fontsize=14)
+# plt.tick_params(axis='both',which='major',labelsize=10)
+# plt.axis([0,1700,0,3000000])#坐标
+# plt.show()
 
-settings = {
-    "recentDestinations": [{
-        "id": "Save as PDF",
-        "origin": "local",
-        "account": ""
-    }],
-    "selectedDestinationId": "Save as PDF",
-    "version": 2,
-    # "customMargins": {},
-    # "marginsType": 2,
-    # "scaling": 100,
-    # "scalingType": 3,
-    # "scalingTypePdf": 3,
-    "isLandscapeEnabled": True,  # landscape横向，portrait 纵向，若不设置该参数，默认纵向
-    "isHeaderFooterEnabled": True,  # 是否打印页眉页脚
-    "isCssBackgroundEnabled": True,  # 是否打印背景
-    "mediaSize": {
-        "height_microns": 297000,
-        "name": "ISO_A4",
-        "width_microns": 210000,
-        "custom_display_name": "A4 210 x 297 mm"  # 设定为A4尺寸
-    },
-}
 
-#save_path = input("请输入保存地址：")
-prefs = {
-    'printing.print_preview_sticky_settings.appState': json.dumps(settings),
-    'savefile.default_directory': 'F:\下载文件\截屏' # 此处填写你希望文件保存的路径
-}
+#随机漫步画图
+# from random import choice
+# import matplotlib.pyplot as plt
+# class RdandomWalk():
+#     def __init__(self,num_points=5000):
+#         self.num_points = num_points
+#         self.xvalue=[0]
+#         self.yvalue=[0]
+#
+#     def fill_walk(self):
+#         while len(self.xvalue) < self.num_points:
+#             xdire = choice([1,-1])
+#             xdist =choice([0,1,2,3,4])
+#             xstep = xdire*xdist
+#
+#             ydire = choice([1,-1])
+#             ydist =choice([0,1,2,3,4])
+#             ystep = ydire*ydist
+#
+#             if xstep == 0 and ystep == 0:
+#                 continue
+#
+#             nextx = self.xvalue[-1] + xstep
+#             nexty = self.yvalue[-1] + ystep
+#
+#             self.xvalue.append(nextx)
+#             self.yvalue.append(nexty)
+#
+# while True:
+#     se = RdandomWalk()
+#     se.fill_walk()
+#     p_num = list(range(se.num_points))
+#     plt.figure(dpi=100,figsize=(10,20))
+#     plt.scatter(se.xvalue,se.yvalue,c=p_num,cmap=plt.cm.Blues,s=15)#scatter可以多次调用，且生成到同一图表上
+#     plt.scatter(0,0,c='green',s=100)
+#     plt.scatter(se.xvalue[-1],se.yvalue[-1],c='green',s=100)
+#     plt.axes().get_xaxis().set_visible(False)#隐藏坐标轴
+#     plt.axes().get_yaxis().set_visible(False)#隐藏坐标轴
+#     plt.show()
+#
+#     keepdoing = input('y/n')
+#     if keepdoing == 'n':
+#         break
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--enable-print-browser')  # 启用PrintBrowser模式，其中所有内容都呈现为打印
-chrome_options.add_argument('--kiosk-printing')  # 静默打印，无需用户点击打印页面的确定按钮
-chrome_options.add_experimental_option('prefs', prefs)
+from random import randint
+import pygal
+class de():
+    def __init__(self,num=6):
+        self.num=num
+    def roll(self):
+        return randint(1,self.num)
 
-driver = webdriver.Chrome(options=chrome_options)
-driver.set_page_load_timeout(10)
-driver.set_script_timeout(10)
-try:
-    driver.get(r'https://blog.csdn.net/ginynu/article/details/63697559')
-except:
-    driver.execute_script('window.stop')
+de = de()
+results =[]
+for i in range(1000):
+    result = de.roll()
+    results.append(result)
+
+ss = []
+for i in range(1,de.num+1):
+    ss1 = results.count(i)
+    ss.append(ss1)
