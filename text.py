@@ -54,21 +54,63 @@
 #     if keepdoing == 'n':
 #         break
 
+#利用pygal制图
 from random import randint
 import pygal
-class de():
-    def __init__(self,num=6):
-        self.num=num
-    def roll(self):
-        return randint(1,self.num)
+# class de():
+#     def __init__(self,num=6):
+#         self.num=num
+#     def roll(self):
+#         return randint(1,self.num)
+#
+# de = de()
+# results =[]
+# for i in range(1000):
+#     result = de.roll()
+#     results.append(result)
+#
+# ss = []
+# for i in range(1,de.num+1):
+#     ss1 = results.count(i)
+#     ss.append(ss1)
+#
+# hist = pygal.Bar()
+# hist.title = 'result of rolling 1000 times'
+# hist.x_labels = ['1','2','3','4','5','6']
+# hist.x_title = 'result'
+# hist.y_title = 'ss of result'
+# hist.add('D6',ss)
+# hist.render_to_file('de.svg')
 
-de = de()
-results =[]
-for i in range(1000):
-    result = de.roll()
-    results.append(result)
+#温度制表
+# import csv
+# from matplotlib import pyplot as plt
+# from datetime import datetime
+# path = 'D:\下载专区\python编程入门到实践\pcc-master\chapter_16\sitka_weather_2014.csv'
+# with open(path) as f:
+#     reader = csv.reader(f)
+#     header_row = next(reader)
+#     dates,highs,lows = [],[],[]
+#     for i in reader:
+#         cdate = datetime.strptime(i[0],"%Y-%m-%d")
+#         dates.append(cdate)
+#         highs.append(int(i[1]))
+#         lows.append(int(i[3]))
+#     fig = plt.figure(dpi=128,figsize=(10,6))
+#     plt.plot(dates,highs,c='red',alpha=0.5)
+#     plt.plot(dates,lows,c='blue',alpha=0.5)
+#     plt.fill_between(dates,highs,lows,facecolor='green',alpha=0.5)
+#     plt.title('Daiy high temperatures,2014')
+#     plt.xlabel("",fontsize=16)
+#     plt.ylabel('temp',fontsize=16)
+#     plt.show()
 
-ss = []
-for i in range(1,de.num+1):
-    ss1 = results.count(i)
-    ss.append(ss1)
+import requests
+import json
+json_url = 'https://raw.githubusercontent.com/muxuezi/btc/master/btc_close_2017.json'
+response = requests.get(json_url)
+btcdata = response.json()
+for row in btcdata:
+    date = row['date']
+    month = row['month']
+    print(row)
