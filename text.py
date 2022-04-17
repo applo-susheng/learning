@@ -55,8 +55,8 @@
 #         break
 
 #利用pygal制图
-from random import randint
-import pygal
+# from random import randint
+# import pygal
 # class de():
 #     def __init__(self,num=6):
 #         self.num=num
@@ -83,9 +83,11 @@ import pygal
 # hist.render_to_file('de.svg')
 
 #温度制表
+# import time
 # import csv
 # from matplotlib import pyplot as plt
 # from datetime import datetime
+# start = time.clock()
 # path = 'D:\下载专区\python编程入门到实践\pcc-master\chapter_16\sitka_weather_2014.csv'
 # with open(path) as f:
 #     reader = csv.reader(f)
@@ -104,13 +106,63 @@ import pygal
 #     plt.xlabel("",fontsize=16)
 #     plt.ylabel('temp',fontsize=16)
 #     plt.show()
+# end = time.clock()
+# print(end-start)
 
-import requests
-import json
-json_url = 'https://raw.githubusercontent.com/muxuezi/btc/master/btc_close_2017.json'
-response = requests.get(json_url)
-btcdata = response.json()
-for row in btcdata:
-    date = row['date']
-    month = row['month']
-    print(row)
+
+# import requests
+# import json
+# json_url = 'https://raw.githubusercontent.com/muxuezi/btc/master/btc_close_2017.json'
+# response = requests.get(json_url)
+# btcdata = response.json()
+# for row in btcdata:
+#     date = row['date']
+#     month = row['month']
+#     print(row)
+
+
+from fuzzywuzzy import process
+import pandas as pd
+
+#原始模板
+# def fuzzy_merge(df1,df2,key1,key2,threshold=90,limit=3):
+#         df1['企业相似度百分比'] = df1[key1].apply(lambda x: process.extract(x, df2[key2].tolist(),limit=limit))
+#         df1['匹配度最高企业'] = df1['企业相似度百分比'].apply(lambda x : [i[0] for i in x if i[1] >= threshold][0] if len([i[0] for i in x if i[1] >= threshold]) > 0 else "")
+#     return df1
+
+#添加了新的属性，多两个条件进行匹配
+# def IfFuzzyMerge(df1,df2,first_key1,first_key2,second_key1,second_key2,threshold=90,limit=3):
+#     df = pd.DataFrame()
+#     values = df2[second_key2].unique() #返回不重复值
+#     for value in values:
+#         df1['企业相似度百分比'] = df1[df1[second_key1]==value][first_key1].apply(lambda x: process.extract(x, df2[df2[second_key2]==value][first_key2].tolist(),limit=limit))
+#         df = pd.concat([df,df1], ignore_index=True)   #纵轴拼接
+#         df = df[df['企业相似度百分比'].notnull()]        #去掉空值
+#         df['匹配度最高企业'] = df['企业相似度百分比'].apply(lambda x : [i[0] for i in x if i[1] >= threshold][0] if len([i[0] for i in x if i[1] >= threshold]) > 0 else "")
+#     return df
+#
+# df1 = pd.read_excel(r'F:\新建文件夹\2021年汇总.xlsx')
+# df2 = pd.read_excel(r'F:\新建文件夹\2021年汇总.xlsx',sheet_name=1)
+#
+# match_data = IfFuzzyMerge(df1,df2,'企业名称','企业名称','省','省')
+# data = pd.merge(match_data,df2,how='left',left_on=['匹配度最高企业'],right_on=['企业名称'])
+# with pd.ExcelWriter(r'F:\新建文件夹\待匹配名称的监测企业(保存）.xlsx',   mode ='a', engine='openpyxl',if_sheet_exists='new') as writer:
+#     match_data.to_excel(writer,sheet_name='test1')
+
+#error test
+# import traceback
+# try:
+#     raise Exception('this is an error')
+# except:
+#     errofile = open('error.txt','w')
+#     errofile.write(traceback.format_exc())
+#     errofile.close()
+#     print('nothing,just test')
+
+import os
+
+for path,noting,name in os.walk('D:\下载专区\EXCEL模板 - 副本'):
+    for i in name:
+        newname = path
+        print(path)
+
